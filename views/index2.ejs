@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"  >   <meta charset="UTF-8"  name="viewport" content="width=device-width,initial-scale=1 user-scalable=no">
+    <title>学生管理</title>
+    <link rel="stylesheet"  href="/css/ExternalStyle.css">
+    <style>
+        .box {
+    font-size: 1em;
+    font-family: 仿宋, serif;
+    width: 60%;
+    display: block;
+    margin-left: 10%;
+    opacity: 0.8;
+    padding: 0.2em;
+    color: #000000;
+    border-radius: 10px;
+    background-color: #bed8df;
+}
+.button{
+    color: #1b0308;
+    background-color: #dfbebe;
+}
+    </style>
+</head>
+
+<body>
+    <header class="DS_header" >
+        <span>选课情况如下</span>
+ </header>
+ 
+     
+    <div class="box">
+        <label for="">请输出要查询老师的姓名：</label>
+ <input type="text" name="tuser" id="tuser">
+ <input class="button" id="chaxun" type="button" value="查询" >
+    <h1>全体学生选课情况如下:</h1>
+    
+    <table>
+        <tr>
+            <th>学生</th>
+            <th>老师</th>
+            <th>课程</th>
+            <th>时间</th>
+        </tr>
+
+        <%for(var i=0;i<arr.length;i++){%>
+        <tr>
+             <td><%=arr[i].user%></td>
+             <td><%=arr[i].tuser%></td>
+             <td><%=arr[i].book%></td>
+             <td><%=arr[i].time%></td>
+        </tr>
+            <%} %>
+    </table>
+    </div>
+
+
+    <div class="box">
+        <h1>您有以下学生:</h1>
+        
+        <table id="biaoge2">
+            <tr>
+                <th>学生</th>
+                <th>老师</th>
+                <th>课程</th>
+                <th>时间</th>
+            </tr>
+      </table>
+        </div>
+
+   <!--第二部分-->
+<footer>
+    <ul>
+        <li>
+            <a href="/sy2">
+                <img src="/image/nav10.png" alt="">
+                <span >老师首页</span>    <!--加载行内样式CSS,某个样式代码很少，样式出现次数少-->
+            </a>
+        </li>
+        <li>
+            <a href="/add2">
+                <img src="/image/nav20.png" alt="">
+                <span>老师替课</span>
+            </a>
+        </li>
+        <li>
+            <a href="/allStudent2">
+                <img src="/image/nav31.png" alt="">
+                <span>查询课程</span>
+            </a>
+        </li>
+        <li>
+            <a href="/delete2">
+                <img src="/image/nav40.png" alt="">
+                <span>老师替删</span>
+            </a>
+        </li>
+        <li>
+            <a href="/login">
+                <img src="/image/nav50.png" alt="">
+                <span>退出登录</span>
+            </a>
+        </li>
+    
+    </ul>
+</footer>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script>   
+    $("#chaxun").click(function () {
+    $.post("/aStudent2", { 
+        "tuser":$("#tuser").val(),
+    },(data) => {
+            var str = '';
+            data.results.forEach((item) => {
+                str += `<tr><td>${item.user}</td><td>${item.tuser}</td><td>${item.book}</td><td>${item.time}</td></th>`
+            })
+            $('#biaoge2').append(str);
+        });
+    });
+
+
+
+
+</script>
+
+
+</body>
+</html>

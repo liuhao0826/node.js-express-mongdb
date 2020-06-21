@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--标签的注释方式 ctrl＋斜杠-->
+<!--标签：双标签和单标签-->
+ <!--行内标签和块级标签-->
+<!--属性-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"  name="viewport" content="width=device-width,initial-scale=1 user-scalable=no">
+    <title>教师查询系统</title>
+    <!--用来加载外部资源的标签-->
+    <!--相对路径和绝对路径-->
+    <link rel="short icon" href="/image/icon.png">
+    <!--加载外部样式CSS,一个项目有很多地方样式都一样时-->
+    <link rel="stylesheet"  href="/css/ExternalStyle.css">
+    <!--加载页内样式CSS,一个项目在项目出现的次数比较少,代码量稍大时，-->
+    <style>
+ 
+
+       .box {
+    font-size: 1em;
+    font-family: 仿宋, serif;
+    width: 60%;
+    display: block;
+    margin-left: 10%;
+    opacity: 0.8;
+    padding: 0.2em;
+    color: #000000;
+    border-radius: 10px;
+    background-color: #bed8df;
+}
+    </style>
+</head>
+
+
+
+<body>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<!--第一部分-->
+<header class="DS_header" >
+       <span>完善教师信息</span>
+</header>
+
+<!--第二部分-->
+<section class="box">
+    <div>
+        <ul>  
+            <li>
+                <h1 style="display: inline-block;">完善教师信息: </h1>
+            </li>
+
+            <li>
+                <label for="">姓名：</label>
+                <input type="text" name="tuser" id="tuser">
+            </li>
+        
+            <li>
+                <label for="">年龄：</label>
+                <input type="text" name="tage" id="tage">
+            </li>
+            <li>
+                性别：
+                <input type="radio" name="tsex" value="man">男
+                <input type="radio" name="tsex" value="woman">女
+            </li>
+            <li>
+                <label for="">籍贯：</label>
+                <input type="text" name="tplace" id="tplace">
+            </li>
+            <li>
+                <label for="">学院：</label>
+                <input type="text" name="txy" id="txy">
+            </li>
+
+        </ul> 
+    </div>
+
+</section>
+   <input id="adds2" type="button"  class="button"  value="完善" >
+
+
+   <div class="box">
+    <label for="">获取您的信息：</label>
+    <input type="text" name="tuser2" id="tuser2">
+    <input class="button" id="chaxun" type="button" value="查询" >
+        
+    <h1>所查询老师个人信息如下:</h1>
+    
+    <table id="biaoge3">
+        <tr>
+            <th>用户</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>籍贯</th>
+            <th>学院</th>
+        </tr>
+  </table>
+    </div>
+
+
+
+<footer>
+    <ul>
+        <li>
+            <a href="/sy2">
+                <img src="/image/nav11.png" alt="">
+                <span > 老师首页</span>    <!--加载行内样式CSS,某个样式代码很少，样式出现次数少-->
+            </a>
+        </li>
+        <li>
+            <a href="/add2">
+                <img src="/image/nav20.png" alt="">
+                <span>老师替选</span>
+            </a>
+        </li>
+        <li>
+            <a href="/allStudent2">
+                <img src="/image/nav30.png" alt="">
+                <span>查询课程</span>
+            </a>
+        </li>
+        <li>
+            <a href="/delete2">
+                <img src="/image/nav40.png" alt="">
+                <span>老师替删</span>
+            </a>
+        </li>
+        <li>
+            <a href="/login">
+                <img src="/image/nav50.png" alt="">
+                <span>退出登录</span>
+            </a>
+        </li>
+    
+    </ul>
+</footer>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script>
+     $("#adds2").click(function () {
+        $.post("/adds2", { 
+            "tuser":$("#tuser").val(),
+            "tage":$("#tage").val(),
+            "tsex":$("input[name=tsex]:checked").val(),
+            "tplace":$("#tplace").val(),
+            "txy":$("#txy").val(),
+        }, function (data) {  // data是服务器返回的数据
+            if(data == "1"){
+                alert("完善信息成功")
+                 }else { 
+                alert("此用户不存在")
+            }
+        });
+    });
+
+
+    $("#chaxun").click(function () {
+    $.post("/sy2", { 
+        "tuser":$("#tuser2").val(),
+    },(data) => {
+            var str = '';
+            data.results.forEach((item) => {
+                str += `<tr><td>${item.tuser}</td><td>${item.tage}</td><td>${item.tsex}</td><td>${item.tplace}</td><td>${item.txy}</td></th>`
+            })
+            $('#biaoge3').append(str);
+        });
+    });
+
+
+
+</script>
+</body>
+</html>
